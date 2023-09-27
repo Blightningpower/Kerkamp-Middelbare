@@ -70,7 +70,7 @@
 
         #payment-button {
             padding: 10px 20px;
-            background-color: green;
+            background-color: #080;
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -78,6 +78,16 @@
         }
 
         #payment-button a {
+            color: white;
+        }
+
+        #payment-button:hover {
+            background-color: #008;
+            color: white;
+        }
+
+        #payment-button:hover {
+            background-color: #800;
             color: white;
         }
     </style>
@@ -113,11 +123,26 @@
 <a href="https://www.ing.nl/de-ing/payreq?trxid=J9zmXGfNsBGSYfiGW9XIdLT15ydddJHx&flow-step=payment-request" id="payment-button">Betalen</a>
 <br>
 <br>
-<!--<script>-->
-<!--    function closeIframe(){-->
-<!--        alert("Je gegevens zijn verzonden, reken alleen nog af door op de 'Betalen' knop te klikken. VERGEET NIET OM WEER JE VOOR- EN ACHTERNAAM  EN JE GROEP IN TE VULLEN BIJ DE TIKKIE!")-->
-<!--        document.getElementById('iFrame').style.display='none'-->
-<!--    }-->
-<!--</script>-->
+<script>
+    // Voeg een klikgebeurtenislistener toe aan de betalingsknop
+    document.getElementById("payment-button").addEventListener("click", function (e) {
+        // Voorkom standaardgedrag van de link (navigeren naar de URL)
+        e.preventDefault();
+
+        // Toon het eerste bericht aan de gebruiker
+        var confirmation = confirm("Heb je alle gele velden met je gegevens al ingevuld en op de \n 'Verzend gegevens' knop geklikt? \n\n"
+            + "Vergeet niet de 'Ik ben geen robot' reCAPTCHA aan te vinken! \n\n"
+            + "Klik op 'OK' voor 'JA'. Klik op 'Annuleren' voor 'NEE'."
+        );
+
+        // Als de gebruiker op OK klikt, navigeer naar de Tikkie-link
+        if (confirmation) {
+            window.location.href = this.href;
+        } else {
+            // Als de gebruiker op Annuleren klikt, toon een bericht
+            var secondConfirmation = alert("Vul nog even de rest van je gegevens in en klik dan op \n 'Verzend gegevens' en vink vervolgens de 'Ik ben geen robot' reCAPTCHA aan");
+        }
+    });
+</script>
 </body>
 </html>
